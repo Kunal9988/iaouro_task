@@ -1,23 +1,28 @@
-const express = require('express');
+// routes/expenses.js
+import express from 'express';
 const router = express.Router();
-const verifyToken = require('../middleware/authMiddleware');
-const {
+
+// ✅ Middleware for token verification
+import verifyToken from '../middleware/authMiddleware.js';
+
+// ✅ Controller functions
+import {
   addExpense,
   getExpenses,
   editExpense,
   deleteExpense
-} = require('../controllers/expenseController'); 
+} from '../controllers/expenseController.js';
 
+// ✅ Add Expense
+router.post('/add', verifyToken, addExpense);
 
-router.post('/', verifyToken, addExpense);
+// ✅ Get All Expenses for logged-in user
+router.get('/my-expenses', verifyToken, getExpenses);
 
+// ✅ Edit Expense by ID
+router.put('/edit/:id', verifyToken, editExpense);
 
-router.get('/', verifyToken, getExpenses);
+// ✅ Delete Expense by ID
+router.delete('/delete/:id', verifyToken, deleteExpense);
 
-
-router.put('/:id', verifyToken, editExpense);
-
-
-router.delete('/:id', verifyToken, deleteExpense);
-
-module.exports = router;
+export default router;

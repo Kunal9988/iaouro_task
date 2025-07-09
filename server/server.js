@@ -1,25 +1,27 @@
-const express = require('express');
-const cors = require('cors');
-const dotenv = require('dotenv');
+// server.js
 
-// Load environment variables
-dotenv.config();
+import express, { json } from 'express';
+import cors from 'cors';
+import { config } from 'dotenv';
+
+// Load environment variables from .env file
+config();
 
 const app = express();
 
-// Middleware
+// Middleware to handle CORS and JSON body parsing
 app.use(cors());
-app.use(express.json());
+app.use(json());
 
-// Routes
-const authRoutes = require('./routes/auth');
-const expenseRoutes = require('./routes/expenses');
+// Route Imports
+import authRoutes from './routes/auth.js';
+import expenseRoutes from './routes/expenses.js';
 
-// Use Routes
-app.use('/api/auth', authRoutes);
-app.use('/api/expenses', expenseRoutes);
+// Mount routes with proper base paths
+app.use('/api/auth', authRoutes);         // For signup/login
+app.use('/api/expenses', expenseRoutes);  // For expense CRUD operations
 
-// Default route
+// Health check route
 app.get('/', (req, res) => {
   res.send('🚀 Expense Tracker Backend Running!');
 });

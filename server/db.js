@@ -1,11 +1,11 @@
-const mysql = require('mysql2');
-const dotenv = require('dotenv');
+import { createConnection } from 'mysql2';
+import { config } from 'dotenv';
 
 // Load environment variables from .env file
-dotenv.config();
+config();
 
 // Create MySQL connection
-const conn = mysql.createConnection({
+const conn = createConnection({
   host: process.env.DB_HOST,       // e.g., localhost
   user: process.env.DB_USER,       // e.g., root
   password: process.env.DB_PASSWORD, // e.g., (blank or your password)
@@ -22,4 +22,4 @@ conn.connect((err) => {
 });
 
 // Export the connection for use in other files
-module.exports = conn;
+export default conn;
