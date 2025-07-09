@@ -1,6 +1,6 @@
 import db from '../db.js'; // Import the default MySQL connection
 
-// ✅ Add Expense
+//  Add Expense
 export function addExpense(req, res) {
   const { category, amount, comments } = req.body;
   const userId = req.user.id;
@@ -9,14 +9,14 @@ export function addExpense(req, res) {
 
   db.query(sql, [userId, category, amount, comments], (err) => {
     if (err) {
-      console.error("❌ Error inserting expense:", err);
+      console.error(" Error inserting expense:", err);
       return res.status(500).json({ message: "Database error" });
     }
     res.status(201).json({ message: "Expense added" });
   });
 }
 
-// ✅ Get Expenses for logged-in user
+// Get Expenses for logged-in user
 export function getExpenses(req, res) {
   const userId = req.user.id;
 
@@ -24,14 +24,14 @@ export function getExpenses(req, res) {
 
   db.query(sql, [userId], (err, results) => {
     if (err) {
-      console.error("❌ Error fetching expenses:", err);
+      console.error(" Error fetching expenses:", err);
       return res.status(500).json({ message: "Database error" });
     }
     res.status(200).json(results);
   });
 }
 
-// ✅ Edit Expense
+//  Edit Expense
 export function editExpense(req, res) {
   const { id } = req.params;
   const { category, amount, comments } = req.body;
@@ -41,14 +41,14 @@ export function editExpense(req, res) {
 
   db.query(sql, [category, amount, comments, id, userId], (err, result) => {
     if (err) {
-      console.error("❌ Error editing expense:", err);
+      console.error(" Error editing expense:", err);
       return res.status(500).json({ message: "Database error" });
     }
     res.json({ message: "Expense updated" });
   });
 }
 
-// ✅ Delete Expense
+//  Delete Expense
 export function deleteExpense(req, res) {
   const { id } = req.params;
   const userId = req.user.id;
@@ -57,7 +57,7 @@ export function deleteExpense(req, res) {
 
   db.query(sql, [id, userId], (err, result) => {
     if (err) {
-      console.error("❌ Error deleting expense:", err);
+      console.error(" Error deleting expense:", err);
       return res.status(500).json({ message: "Database error" });
     }
     res.json({ message: "Expense deleted" });

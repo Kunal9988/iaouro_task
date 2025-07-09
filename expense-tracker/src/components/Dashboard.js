@@ -10,7 +10,7 @@ function Dashboard() {
 
   const API_BASE = 'http://localhost:5000/api/expenses';
 
-  // 🔽 Fetch all expenses
+  //  all expenses
   const fetchExpenses = async () => {
     try {
       const response = await fetch(`${API_BASE}/my-expenses`, {
@@ -36,7 +36,7 @@ function Dashboard() {
     fetchExpenses();
   }, []);
 
-  // ➕ Add a new expense
+  // Add a new expense
   const handleAddExpense = async (e) => {
     e.preventDefault();
 
@@ -64,22 +64,22 @@ function Dashboard() {
       const data = await response.json();
 
       if (response.ok) {
-        alert('✅ Expense added!');
+        alert(' Expense added!');
         setCategory('');
         setAmount('');
         setComments('');
         fetchExpenses();
       } else {
-        console.error("❌ Add error:", data);
+        console.error(" Add error:", data);
         alert(data.message || 'Failed to add expense');
       }
     } catch (err) {
-      console.error("❌ Network error while adding:", err);
+      console.error(" Network error while adding:", err);
       alert('Error adding expense');
     }
   };
 
-  // ❌ Delete expense
+  // Delete expense
   const handleDelete = async (id) => {
     const confirmDelete = window.confirm("Are you sure you want to delete this expense?");
     if (!confirmDelete) return;
@@ -95,21 +95,21 @@ function Dashboard() {
       const data = await response.json();
 
       if (response.ok) {
-        alert('🗑️ Expense deleted!');
+        alert(' Expense deleted!');
         fetchExpenses();
       } else {
-        console.error("❌ Delete error:", data);
+        console.error(" Delete error:", data);
         alert(data.message || 'Failed to delete expense');
       }
     } catch (err) {
-      console.error("❌ Network error while deleting:", err);
+      console.error(" Network error while deleting:", err);
       alert('Error deleting expense');
     }
   };
 
   return (
     <div className="container mt-5">
-      <h2 className="text-center mb-4">💰 Expense Dashboard</h2>
+      <h2 className="text-center mb-4"> Expense Dashboard</h2>
 
       {/* Add Expense Form */}
       <form onSubmit={handleAddExpense} className="mb-4">
